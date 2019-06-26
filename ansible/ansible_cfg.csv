@@ -1,0 +1,209 @@
+オプション,説明,タイプ,デフォルト,追加されたバージョン,Iniセクション,Iniキー,環境,廃止予定,詳細廃止,代替廃止予定
+ACTION_WARNINGS¶,デフォルトでは、Ansibleはタスクアクション（モジュールまたはアクションプラグイン）から受け取ったときに警告を発行します。これらの警告は、この設定をFalseに調整することで消すことができます。,boolean,True,2.5,defaults,action_warnings,ANSIBLE_ACTION_WARNINGS,None,None,None
+AGNOSTIC_BECOME_PROMPT¶,指定されたコマンドラインを含むプロンプトを表示する代わりに、不可知論的なBeamプロンプトを表示する,boolean,True,2.5,privilege_escalation,agnostic_become_prompt,ANSIBLE_AGNOSTIC_BECOME_PROMPT,None,None,None
+ALLOW_WORLD_READABLE_TMPFILES¶,これにより、マシン上に作成された一時ファイルは誰でも読めるようになり、タスクを失敗する代わりに警告を発します。非特権ユーザーになるときに役立ちます。,boolean,False,2.1,defaults,allow_world_readable_tmpfiles,None,None,None,None
+ANSIBLE_CONNECTION_PATH¶,ansible-connectionスクリプトを探す場所を指定します。この場所は$ PATHを検索する前にチェックされます。 nullの場合、ansibleはansibleスクリプトと同じディレクトリから始まります。,path,None,2.8,persistent_connection,ansible_connection_path,ANSIBLE_CONNECTION_PATH,None,None,None
+ANSIBLE_COW_PATH¶,カスタムcowsayパスを指定するか、選択したcowsay実装でスワップする,string,None,None,defaults,cowpath,ANSIBLE_COW_PATH,None,None,None
+ANSIBLE_COW_SELECTION¶,これはあなたがバナーのために特定のcowsayステンシルを選ぶか、それらを循環させるために「ランダム」を使うことを可能にします。,None,default,None,defaults,cow_selection,ANSIBLE_COW_SELECTION,None,None,None
+ANSIBLE_COW_WHITELIST¶,安全に使用できるコージーテンプレートのホワイトリスト。インストールされているすべてのテンプレートを有効にする場合は、空のリストに設定します。,list,"[‘bud-frogs’, ‘bunny’, ‘cheese’, ‘daemon’, ‘default’, ‘dragon’, ‘elephant-in-snake’, ‘elephant’, ‘eyes’, ‘hellokitty’, ‘kitty’, ‘luke-koala’, ‘meow’, ‘milk’, ‘moofasa’, ‘moose’, ‘ren’, ‘sheep’, ‘small’, ‘stegosaurus’, ‘stimpy’, ‘supermilker’, ‘three-eyes’, ‘turkey’, ‘turtle’, ‘tux’, ‘udder’, ‘vader-koala’, ‘vader’, ‘www’]",None,defaults,cow_whitelist,ANSIBLE_COW_WHITELIST,None,None,None
+ANSIBLE_FORCE_COLOR¶,このオプションは、TTYなしで実行している場合や「nocolor」設定がTrueの場合でもカラーモードを強制します。,boolean,False,None,defaults,force_color,ANSIBLE_FORCE_COLOR,None,None,None
+ANSIBLE_NOCOLOR¶,この設定により、出力の色付けを抑制することができます。これは、失敗やステータス情報をより適切に示すために使用されます。,boolean,False,None,defaults,nocolor,ANSIBLE_NOCOLOR,None,None,None
+ANSIBLE_NOCOWS¶,あなたがcowsayをインストールしていても、 'cows'を避けたいのなら（なぜ????）、これを使ってください。,boolean,False,None,defaults,nocows,ANSIBLE_NOCOWS,None,None,None
+ANSIBLE_PIPELINING¶,接続プラグインでサポートされている場合、パイプライン化は、実際のファイル転送なしで多数のAnsibleモジュールを実行することによって、リモートサーバー上でモジュールを実行するために必要なネットワーク操作の数を減らします。これを有効にすると、パフォーマンスが大幅に向上します。しかしこれは特権の昇格と衝突します（なります）。たとえば、「sudo：」操作を使用する場合は、最初にすべての管理対象ホストの/ etc / sudoersで「requiretty」を無効にする必要があるため、デフォルトで無効になっています。 ANSIBLE_KEEP_REMOTE_FILESが有効な場合、このオプションは無効になります。,boolean,False,None,ssh_connection,pipelining,ANSIBLE_SSH_PIPELINING,None,None,None
+ANSIBLE_SSH_ARGS¶,設定すると、Ansibleのデフォルトのssh引数が上書きされます。特に、ユーザーはパフォーマンスを向上させるためにControlPersistの時間を長くしたいと思うかもしれません。 30分の値が適切かもしれません。 -o ControlPathがssh_argsに設定されている場合、制御パス設定は使用されません。,None,-C -o ControlMaster=auto -o ControlPersist=60s,None,ssh_connection,ssh_args,ANSIBLE_SSH_ARGS,None,None,None
+ANSIBLE_SSH_CONTROL_PATH¶,これはsshのControlPathソケットを保存する場所です。sshの変数置換を使用します。 2.3以降、nullの場合、ansibleは一意のハッシュを生成します。制御ディレクトリパス設定を使用する場所を示すには、％（ディレクトリ）sを使用します。 2.3より前は、control_path =％（directory）s / ansible-ssh  -  %% h  -  %% p  -  %% rがデフォルトでした。 ssh引数で-o ControlPathが設定されている場合、この設定は無視されることに注意してください。,None,None,None,ssh_connection,control_path,ANSIBLE_SSH_CONTROL_PATH,None,None,None
+ANSIBLE_SSH_CONTROL_PATH_DIR¶,制御パス設定がnullの場合、これはssh制御パスに使用するディレクトリを設定します。また、制御パス設定用の％（ディレクトリ）s変数を提供します。,None,~/.ansible/cp,None,ssh_connection,control_path_dir,ANSIBLE_SSH_CONTROL_PATH_DIR,None,None,None
+ANSIBLE_SSH_EXECUTABLE¶,これはsshバイナリの場所を定義します。デフォルトはsshで、これは$ PATHで利用可能な最初のsshバイナリを使用します。このオプションは通常必須ではありません。システムsshへのアクセスが制限されているとき、またはsshラッパーを使用してリモートホストに接続するときに役立ちます。,None,ssh,2.2,ssh_connection,ssh_executable,ANSIBLE_SSH_EXECUTABLE,None,None,None
+ANSIBLE_SSH_RETRIES¶,あきらめて、ホストを「到達不能」と報告する前に接続を確立しようとした回数,integer,0,None,ssh_connection,retries,ANSIBLE_SSH_RETRIES,None,None,None
+ANY_ERRORS_FATAL¶,any_errors_fatalキーワードのデフォルト値を設定します。Trueの場合、タスクの失敗は致命的なエラーと見なされます。,boolean,False,2.4,defaults,any_errors_fatal,ANSIBLE_ANY_ERRORS_FATAL,None,None,None
+BECOME_ALLOW_SAME_USER¶,この設定は、リモートユーザーとユーザーになるのが同じである場合になりますがスキップされるかどうかを制御します。ルートへのI.Eルートsudo。,boolean,False,None,privilege_escalation,become_allow_same_user,ANSIBLE_BECOME_ALLOW_SAME_USER,None,None,None
+BECOME_PLUGIN_PATH¶,AnsibleがBecome Pluginsを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/become:/usr/share/ansible/plugins/become,2.8,defaults,become_plugins,ANSIBLE_BECOME_PLUGINS,None,None,None
+CACHE_PLUGIN¶,使用するキャッシュプラグインを選択します。デフォルトの「メモリ」は短命です。,None,memory,None,defaults,fact_caching,ANSIBLE_CACHE_PLUGIN,None,None,None
+CACHE_PLUGIN_CONNECTION¶,キャッシュプラグインの接続またはパス情報を定義します,None,None,None,defaults,fact_caching_connection,ANSIBLE_CACHE_PLUGIN_CONNECTION,None,None,None
+CACHE_PLUGIN_PREFIX¶,キャッシュプラグインファイル/テーブルに使用するプレフィックス,None,ansible_facts,None,defaults,fact_caching_prefix,ANSIBLE_CACHE_PLUGIN_PREFIX,None,None,None
+CACHE_PLUGIN_TIMEOUT¶,キャッシュプラグインデータの有効期限タイムアウト,integer,86400,None,defaults,fact_caching_timeout,ANSIBLE_CACHE_PLUGIN_TIMEOUT,None,None,None
+COLLECTIONS_PATHS¶,None,pathspec,~/.ansible/collections:/usr/share/ansible/collections,None,defaults,collections_paths,ANSIBLE_COLLECTIONS_PATHS,None,None,None
+COLOR_CHANGED¶,「変更」タスクステータスで使用する色を定義します,None,yellow,None,colors,changed,ANSIBLE_COLOR_CHANGED,None,None,None
+COLOR_CONSOLE_PROMPT¶,ansible-consoleに使用するデフォルトの色を定義します,None,white,2.7,colors,console_prompt,ANSIBLE_COLOR_CONSOLE_PROMPT,None,None,None
+COLOR_DEBUG¶,デバッグメッセージを発行するときに使用する色を定義します,None,dark gray,None,colors,debug,ANSIBLE_COLOR_DEBUG,None,None,None
+COLOR_DEPRECATE¶,非推奨メッセージを発行するときに使用する色を定義します,None,purple,None,colors,deprecate,ANSIBLE_COLOR_DEPRECATE,None,None,None
+COLOR_DIFF_ADD¶,追加した行をdiffに表示するときに使用する色を定義します,None,green,None,colors,diff_add,ANSIBLE_COLOR_DIFF_ADD,None,None,None
+COLOR_DIFF_LINES¶,差分を表示するときに使用する色を定義します,None,cyan,None,colors,diff_lines,ANSIBLE_COLOR_DIFF_LINES,None,None,None
+COLOR_DIFF_REMOVE¶,差分で削除された行を表示するときに使用する色を定義します,None,red,None,colors,diff_remove,ANSIBLE_COLOR_DIFF_REMOVE,None,None,None
+COLOR_ERROR¶,エラーメッセージを表示するときに使う色を定義します,None,red,None,colors,error,ANSIBLE_COLOR_ERROR,None,None,None
+COLOR_HIGHLIGHT¶,強調表示に使用する色を定義します,None,white,None,colors,highlight,ANSIBLE_COLOR_HIGHLIGHT,None,None,None
+COLOR_OK¶,「OK」タスクステータスを表示するときに使用する色を定義します,None,green,None,colors,ok,ANSIBLE_COLOR_OK,None,None,None
+COLOR_SKIP¶,「スキップ」タスクステータスを表示するときに使用する色を定義します,None,cyan,None,colors,skip,ANSIBLE_COLOR_SKIP,None,None,None
+COLOR_UNREACHABLE¶,「到達不能」ステータスで使用する色を定義します,None,bright red,None,colors,unreachable,ANSIBLE_COLOR_UNREACHABLE,None,None,None
+COLOR_VERBOSE¶,詳細メッセージを発行するときに使用する色を定義します。すなわち「-v」で表示されるもの,None,blue,None,colors,verbose,ANSIBLE_COLOR_VERBOSE,None,None,None
+COLOR_WARN¶,警告メッセージを出すときに使う色を定義します,None,bright purple,None,colors,warn,ANSIBLE_COLOR_WARN,None,None,None
+COMMAND_WARNINGS¶,デフォルトでは、シェルまたはコマンドモジュールが使用されていて、コマンドが既存のAnsibleモジュールと似ているように見える場合、Ansibleは警告を発行します。これらの警告は、この設定をFalseに調整することで消すことができます。モジュールオプションwarnを使用してタスクレベルでこれを制御することもできます。,boolean,True,1.8,defaults,command_warnings,ANSIBLE_COMMAND_WARNINGS,None,None,None
+CONDITIONAL_BARE_VARS¶,この設定を（True）にすると、条件付き評価 'var'の実行は 'var.subkey'とは異なる方法で扱われます。最初の評価は直接評価され、2番目の評価はJinja2パーサーを通過します。しかし、「var」内の「false」文字列はブール値として評価されます。この設定をオフにすると、両方とも同じように評価されますが、「var」が「false」（文字列）の場合は、もはやブール値として評価されません。現在、この設定はデフォルトで「True」に設定されていますが、間もなく「False」に変更され、設定自体は将来削除される予定です。デフォルトはバージョン2.10で変更される予定で、この設定は最終的に2.12以降は推奨されなくなります。,boolean,True,2.8,defaults,conditional_bare_variables,ANSIBLE_CONDITIONAL_BARE_VARS,None,None,None
+CONNECTION_FACTS_MODULES¶,接続に基づいて、プレイの事実収集段階で実行するモジュール,dict,"{‘junos’: ‘junos_facts’, ‘eos’: ‘eos_facts’, ‘frr’: ‘frr_facts’, ‘iosxr’: ‘iosxr_facts’, ‘nxos’: ‘nxos_facts’, ‘ios’: ‘ios_facts’, ‘vyos’: ‘vyos_facts’}",None,defaults,connection_facts_modules,ANSIBLE_CONNECTION_FACTS_MODULES,None,None,None
+DEFAULT_ACTION_PLUGIN_PATH¶,Ansibleがアクションプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/action:/usr/share/ansible/plugins/action,None,defaults,action_plugins,ANSIBLE_ACTION_PLUGINS,None,None,None
+DEFAULT_ALLOW_UNSAFE_LOOKUPS¶,このオプションを有効にすると、ルックアッププラグイン（{{lookup（ 'foo'）}}として、またはwith_fooのようなループとして使用されるかにかかわらず）で「安全でない」とマークされていないデータを返すことができます。デフォルトでは、このようなデータはテンプレートエンジンがjinja 2テンプレート言語を評価するのを防ぐために安全でないとマークされています。このオプションは下位互換性を保つために提供されていますが、テンプレートエンジンを介して実行される可能性があるデータが含まれていると予想される可能性のあるルックアップにallow_unsafe = Trueを追加することを検討してください,boolean,False,2.2.3,defaults,allow_unsafe_lookups,None,None,None,None
+DEFAULT_ASK_PASS¶,Ansibleプレイブックがログインパスワードを要求するかどうかを制御します。認証にSSHキーを使用している場合は、おそらくこの設定を変更する必要はありません。,boolean,False,None,defaults,ask_pass,ANSIBLE_ASK_PASS,None,None,None
+DEFAULT_ASK_SU_PASS¶,これはAnsibleプレイブックがsuパスワードを要求するかどうかを制御します。,boolean,False,None,defaults,ask_su_pass,ANSIBLE_ASK_SU_PASS,2.9,"In favor of Ansible Become, which is a generic framework. See become_ask_pass.
+","become
+"
+DEFAULT_ASK_SUDO_PASS¶,これはAnsibleプレイブックがsudoパスワードを要求するかどうかを制御します。,boolean,False,None,defaults,ask_sudo_pass,ANSIBLE_ASK_SUDO_PASS,2.9,"In favor of Ansible Become, which is a generic framework. See become_ask_pass.
+","become
+"
+DEFAULT_ASK_VAULT_PASS¶,これはAnsibleプレイブックがボールトパスワードを要求するかどうかを制御します。,boolean,False,None,defaults,ask_vault_pass,ANSIBLE_ASK_VAULT_PASS,None,None,None
+DEFAULT_BECOME¶,特権昇格の使用を切り替え、ログイン後に他のユーザーに「なる」ことができます。,boolean,False,None,privilege_escalation,become,ANSIBLE_BECOME,None,None,None
+DEFAULT_BECOME_ASK_PASS¶,特権昇格パスワードの入力を要求するように切り替えます。,boolean,False,None,privilege_escalation,become_ask_pass,ANSIBLE_BECOME_ASK_PASS,None,None,None
+DEFAULT_BECOME_EXE¶,特権の昇格に使用する実行可能ファイル。そうでなければAnsibleはPATHに依存します,None,None,None,privilege_escalation,become_exe,ANSIBLE_BECOME_EXE,None,None,None
+DEFAULT_BECOME_FLAGS¶,特権昇格実行可能ファイルに渡すフラグ。,None,,None,privilege_escalation,become_flags,ANSIBLE_BECOME_FLAGS,None,None,None
+DEFAULT_BECOME_METHOD¶,有効になったときに使用する特権昇格方法。,None,sudo,None,privilege_escalation,become_method,ANSIBLE_BECOME_METHOD,None,None,None
+DEFAULT_BECOME_USER¶,特権の昇格を使用している場合、ログイン/リモートユーザーが「なる」ユーザーになります。ユーザーが指定されていない場合、ほとんどのシステムでは「root」が使用されます。,None,root,None,privilege_escalation,become_user,ANSIBLE_BECOME_USER,None,None,None
+DEFAULT_CACHE_PLUGIN_PATH¶,Ansibleがキャッシュプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/cache:/usr/share/ansible/plugins/cache,None,defaults,cache_plugins,ANSIBLE_CACHE_PLUGINS,None,None,None
+DEFAULT_CALLABLE_WHITELIST¶,テンプレート評価に使用可能にする呼び出し可能メソッドのホワイトリスト,list,[],None,defaults,callable_whitelist,ANSIBLE_CALLABLE_WHITELIST,None,None,None
+DEFAULT_CALLBACK_PLUGIN_PATH¶,Ansibleがコールバックプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/callback:/usr/share/ansible/plugins/callback,None,defaults,callback_plugins,ANSIBLE_CALLBACK_PLUGINS,None,None,None
+DEFAULT_CALLBACK_WHITELIST¶,ホワイトリストに登録されているコールバックのリスト。すべてのコールバックがホワイトリストに登録されている必要はありませんが、Ansibleに付属しているコールバックの多くはデフォルトで有効にしたくないためです。,list,[],None,defaults,callback_whitelist,ANSIBLE_CALLBACK_WHITELIST,None,None,None
+DEFAULT_CLICONF_PLUGIN_PATH¶,AnsibleがCliconfプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/cliconf:/usr/share/ansible/plugins/cliconf,None,defaults,cliconf_plugins,ANSIBLE_CLICONF_PLUGINS,None,None,None
+DEFAULT_CONNECTION_PLUGIN_PATH¶,Ansibleが接続プラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/connection:/usr/share/ansible/plugins/connection,None,defaults,connection_plugins,ANSIBLE_CONNECTION_PLUGINS,None,None,None
+DEFAULT_DEBUG¶,Ansibleのデバッグ出力を切り替えます。これは非常に冗長で、マルチプロセッシングを妨げる可能性があります。 no_log設定が有効になっているにもかかわらず、デバッグ出力に秘密情報を含めることもできます。つまり、本番環境ではデバッグモードを使用しないでください。,boolean,False,None,defaults,debug,ANSIBLE_DEBUG,None,None,None
+DEFAULT_EXECUTABLE¶,これは、Ansibleのターゲット上での実行ニーズのためにシェルを生成するために使用するコマンドを示します。シェルの使用が制限されている場合、ユーザーはこれを変更する必要があるかもしれませんが、ほとんどの場合はそのままにしておくことができます。,None,/bin/sh,None,defaults,executable,ANSIBLE_EXECUTABLE,None,None,None
+DEFAULT_FACT_PATH¶,このオプションを使用すると、ファクトギャザリングを使用するときに、暗黙のM（設定）タスク用の「local_facts」のカスタムパスをグローバルに設定できます。設定されていない場合は、M（setup）モジュールのデフォルト/etc/ansible/facts.dにフォールバックします。これは、M（セットアップ）モジュールを使用するユーザー定義タスクには影響しません。,path,None,None,defaults,fact_path,ANSIBLE_FACT_PATH,None,None,None
+DEFAULT_FILTER_PLUGIN_PATH¶,AnsibleがJinja 2フィルタプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/filter:/usr/share/ansible/plugins/filter,None,defaults,filter_plugins,ANSIBLE_FILTER_PLUGINS,None,None,None
+DEFAULT_FORCE_HANDLERS¶,このオプションは、通知されたハンドラがそのホストで障害が発生した場合でもそのホストで実行されるかどうかを制御します。 falseの場合、ホストで障害が発生した場合にハンドラは実行されません。これは、プレイごとまたはコマンドラインでも設定できます。詳細については、ハンドラと失敗を参照してください。,boolean,False,1.9.1,defaults,force_handlers,ANSIBLE_FORCE_HANDLERS,None,None,None
+DEFAULT_FORKS¶,Ansibleがターゲットホストでタスクを実行するために使用するフォークの最大数。,integer,5,None,defaults,forks,ANSIBLE_FORKS,None,None,None
+DEFAULT_GATHER_SUBSET¶,暗黙的なファクト収集でM（setup）タスクのgather_subsetオプションを設定します。詳細はモジュールのドキュメントを参照してください。ユーザー定義のM（設定）タスクには適用されません。,list,[‘all’],2.1,defaults,gather_subset,ANSIBLE_GATHER_SUBSET,None,None,None
+DEFAULT_GATHER_TIMEOUT¶,暗黙の事実収集のタイムアウトを秒単位で設定します。ユーザー定義のM（設定）タスクには適用されません。,integer,10,None,defaults,gather_timeout,ANSIBLE_GATHER_TIMEOUT,None,None,None
+DEFAULT_GATHERING¶,この設定は、事実収集のデフォルトポリシー（リモートシステムに関して発見された事実）を制御します。 「暗黙的」（デフォルト）の場合、「gather_facts：False」が設定されていない限り、キャッシュプラグインは無視され、プレイごとに事実が収集されます。その逆が「明白」である場合、その事実はその場で直接要求されない限り収集されません。 「スマート」な値は、事実が発見されていない新しい各ホストがスキャンされることを意味しますが、同じホストが複数回のプレイでアドレス指定されている場合、プレイブックの実行では再度コンタクトされません。このオプションは、事実収集の時間を節約したい場合に役立ちます。 「スマート」と「明示」の両方がキャッシュプラグインを使用します。,None,implicit,1.6,defaults,gathering,ANSIBLE_GATHERING,None,None,None
+DEFAULT_HANDLER_INCLUDES_STATIC¶,2.0 M（インクルード）は「動的」になる可能性があるため、この設定（Trueの場合）は、インクルードがハンドラセクションに表示される場合は「静的」になります。,boolean,False,None,defaults,handler_includes_static,ANSIBLE_HANDLER_INCLUDES_STATIC,2.12,"include itself is deprecated and this setting will not matter in the future
+","none as its already built into the decision between include_tasks and import_tasks
+"
+DEFAULT_HASH_BEHAVIOUR¶,この設定は、変数がAnsibleにマージされる方法を制御します。デフォルトでAnsibleは、変数で説明されているように、特定の優先順位で変数を上書きします。優先順位の高い変数が勝つと、他の値に置き換わります。ハッシュ（Python用語では「辞書」とも呼ばれる）である変数はマージされることを好むユーザーもいます。この設定は「マージ」と呼ばれます。これはデフォルトの動作ではなく、値がスカラー（整数、文字列）または配列である変数には影響しません。絶対的な必要性があると思わない限り、この設定を使用しないことをお勧めします。公式サンプルリポジトリのplaybookではこの設定を使用しません。バージョン2.0では、特定の変数に対してこれを実行できるようにコンバインフィルタが追加されました。 ）,string,replace,None,defaults,hash_behaviour,ANSIBLE_HASH_BEHAVIOUR,None,None,None
+DEFAULT_HOST_LIST¶,Ansible在庫ソースのコンマ区切りリスト,pathlist,/etc/ansible/hosts,None,defaults,inventory,ANSIBLE_INVENTORY,None,None,None
+DEFAULT_HTTPAPI_PLUGIN_PATH¶,AnsibleがHttpApiプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/httpapi:/usr/share/ansible/plugins/httpapi,None,defaults,httpapi_plugins,ANSIBLE_HTTPAPI_PLUGINS,None,None,None
+DEFAULT_INTERNAL_POLL_INTERVAL¶,これはAnsible内部プロセスが互いにポーリングする間隔（秒単位）を設定します。値を小さくすると、大きなプレイブックでパフォーマンスが向上しますが、余分なCPU負荷がかかります。 UIの応答性は必要ありませんが、CPU使用率が問題になる可能性がある場合は、値が大きいほど自動化シナリオでのAnsibleの使用に適しています。デフォルトはAnsible <= 2.1にハードコーディングされた値に対応します,float,0.001,2.2,defaults,internal_poll_interval,None,None,None,None
+DEFAULT_INVENTORY_PLUGIN_PATH¶,AnsibleがInventory Pluginsを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/inventory:/usr/share/ansible/plugins/inventory,None,defaults,inventory_plugins,ANSIBLE_INVENTORY_PLUGINS,None,None,None
+DEFAULT_JINJA2_EXTENSIONS¶,これは追加のJinja 2拡張を有効にすることを可能にする開発者特有の機能です。詳細はJinja 2のドキュメントを参照してください。これらの機能がわからない場合は、おそらくこの設定を変更する必要はありません。,None,[],None,defaults,jinja2_extensions,ANSIBLE_JINJA2_EXTENSIONS,None,None,None
+DEFAULT_JINJA2_NATIVE¶,このオプションは、テンプレート操作中に変数タイプを保持します。これにはJinja2> = 2.10が必要です。,boolean,False,2.7,defaults,jinja2_native,ANSIBLE_JINJA2_NATIVE,None,None,None
+DEFAULT_KEEP_REMOTE_FILES¶,リモートでタスクを実行するために使用されるAnsibleの一時ファイルのクリーンアップを有効または無効にします。このオプションを有効にすると、ANSIBLE_PIPELININGが無効になります。,boolean,False,None,defaults,keep_remote_files,ANSIBLE_KEEP_REMOTE_FILES,None,None,None
+DEFAULT_LIBVIRT_LXC_NOSECLABEL¶,この設定により、libvirtはnoseclabelをvirshに渡すことによってlxcコンテナーに接続します。これは、SELinuxがインストールされていないシステムで実行するときに必要です。,boolean,False,2.1,selinux,libvirt_lxc_noseclabel,LIBVIRT_LXC_NOSECLABEL,None,None,None
+DEFAULT_LOAD_CALLBACK_PLUGINS¶,/ usr / bin / ansibleの実行時にコールバックプラグインをロードするかどうかを制御します。これは、コマンドラインからのアクティビティのログ記録、通知の送信などに使用されます。コールバックプラグインは常にansible-playbook用にロードされます。,boolean,False,1.8,defaults,bin_ansible_callbacks,ANSIBLE_LOAD_CALLBACK_PLUGINS,None,None,None
+DEFAULT_LOCAL_TMP¶,Ansibleがコントローラ上で使用するための一時ディレクトリ。,tmppath,~/.ansible/tmp,None,defaults,local_tmp,ANSIBLE_LOCAL_TEMP,None,None,None
+DEFAULT_LOG_FILTER¶,ログファイルから除外するロガー名のリスト,list,[],None,defaults,log_filter,ANSIBLE_LOG_FILTER,None,None,None
+DEFAULT_LOG_PATH¶,Ansibleがコントローラにログオンするファイル。空のロギングが無効になっているとき。,path,None,None,defaults,log_path,ANSIBLE_LOG_PATH,None,None,None
+DEFAULT_LOOKUP_PLUGIN_PATH¶,Ansibleがルックアッププラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/lookup:/usr/share/ansible/plugins/lookup,None,defaults,lookup_plugins,ANSIBLE_LOOKUP_PLUGINS,None,None,None
+DEFAULT_MANAGED_STR¶,M（テンプレート）とM（win_template）モジュールで利用可能な 'ansible_managed'変数のマクロを設定します。これはこれら2つのモジュールにのみ関係します。,None,Ansible managed,None,defaults,ansible_managed,None,None,None,None
+DEFAULT_MODULE_ARGS¶,これは、-aが指定されていない場合にAnsibleアドホックバイナリに渡すデフォルト引数を設定します。,None,,None,defaults,module_args,ANSIBLE_MODULE_ARGS,None,None,None
+DEFAULT_MODULE_COMPRESSION¶,Pythonモジュールをターゲットに転送するときに使用する圧縮方式。,None,ZIP_DEFLATED,None,defaults,module_compression,None,None,None,None
+DEFAULT_MODULE_LANG¶,ターゲットでモジュールを実行するときにモジュールに使用する言語ロケール設定。空の場合は、コントローラのLANG環境変数に自分自身を設定しようとします。これは、DEFAULT_MODULE_SET_LOCALEがtrueに設定されている場合にのみ使用されます。,None,{{ CONTROLLER_LANG }},None,defaults,module_lang,ANSIBLE_MODULE_LANG,2.9,"Modules are coded to set their own locale if needed for screenscraping
+","
+"
+DEFAULT_MODULE_NAME¶,ansible AdHocコマンドで使用するモジュール（-mで何も指定されていない場合）。,None,command,None,defaults,module_name,None,None,None,None
+DEFAULT_MODULE_PATH¶,Ansibleがモジュールを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules,None,defaults,library,ANSIBLE_LIBRARY,None,None,None
+DEFAULT_MODULE_SET_LOCALE¶,ターゲットで実行するときにモジュールのロケールを設定するかどうかを制御します。,boolean,False,None,defaults,module_set_locale,ANSIBLE_MODULE_SET_LOCALE,2.9,"Modules are coded to set their own locale if needed for screenscraping
+","
+"
+DEFAULT_MODULE_UTILS_PATH¶,AnsibleがModule utilsファイルを検索するコロン区切りのパス。これはモジュールによって共有されます。,pathspec,~/.ansible/plugins/module_utils:/usr/share/ansible/plugins/module_utils,None,defaults,module_utils,ANSIBLE_MODULE_UTILS,None,None,None
+DEFAULT_NETCONF_PLUGIN_PATH¶,AnsibleがNetconfプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/netconf:/usr/share/ansible/plugins/netconf,None,defaults,netconf_plugins,ANSIBLE_NETCONF_PLUGINS,None,None,None
+DEFAULT_NO_LOG¶,Ansibleの表示とタスク詳細のログ記録を切り替えます。これは主にセキュリティの開示を避けるために使用されます。,boolean,False,None,defaults,no_log,ANSIBLE_NO_LOG,None,None,None
+DEFAULT_NO_TARGET_SYSLOG¶,ターゲットのタスク実行時に、Ansibleロギングをターゲットのsyslogに切り替えます。,boolean,False,None,defaults,no_target_syslog,ANSIBLE_NO_TARGET_SYSLOG,None,None,None
+DEFAULT_NULL_REPRESENTATION¶,どのテンプレートが「null」値として返すべきか。設定されていない場合はJinja2が決定します。,none,None,None,defaults,null_representation,ANSIBLE_NULL_REPRESENTATION,None,None,None
+DEFAULT_POLL_INTERVAL¶,Ansibleの非同期タスク（「非同期アクションとポーリング」で説明されています）では、明示的なポーリング間隔が指定されていないときにこれらのタスクのステータスを確認する頻度です。デフォルトは適度に適度な15秒で、頻繁にチェックインすることと何かが完了した可能性があるときに迅速に対応することとの間のトレードオフです。,integer,15,None,defaults,poll_interval,ANSIBLE_POLL_INTERVAL,None,None,None
+DEFAULT_PRIVATE_KEY_FILE¶,エージェントやパスワードではなく、証明書またはキーファイルを使用して認証を行う接続のオプションです。起動時にprivate-keyを再指定しないように、ここでデフォルト値を設定できます。,path,None,None,defaults,private_key_file,ANSIBLE_PRIVATE_KEY_FILE,None,None,None
+DEFAULT_PRIVATE_ROLE_VARS¶,役割変数を他の役割からアクセスできないようにします。これは、ロールがプレイブックで複数回使用されている場合にロール変数をデフォルト値にリセットする方法として導入されました。,boolean,False,None,defaults,private_role_vars,ANSIBLE_PRIVATE_ROLE_VARS,None,None,None
+DEFAULT_REMOTE_PORT¶,リモート接続で使用するポート。空白の場合はデフォルトの接続プラグインが使用されます。,integer,None,None,defaults,remote_port,ANSIBLE_REMOTE_PORT,None,None,None
+DEFAULT_REMOTE_USER¶,ターゲットマシンのログインユーザーを設定します空白の場合、接続プラグインのデフォルト、通常Ansibleを実行しているユーザーが使用されます。,None,None,None,defaults,remote_user,ANSIBLE_REMOTE_USER,None,None,None
+DEFAULT_ROLES_PATH¶,Ansibleがロールを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles,None,defaults,roles_path,ANSIBLE_ROLES_PATH,None,None,None
+DEFAULT_SCP_IF_SSH¶,SSH経由でファイルを転送するときに使用する推奨方法。 smartに設定すると、Ansibleは成功するか失敗するまでそれらを試します。 Trueに設定すると 'scp'が強制され、Falseの場合は 'sftp'が使用されます。,None,smart,None,ssh_connection,scp_if_ssh,ANSIBLE_SCP_IF_SSH,None,None,None
+DEFAULT_SELINUX_SPECIAL_FS¶,安全な操作をサポートしていないファイルシステムや一貫性のないエラーを返すファイルシステムもあります。この設定により、Ansibleは致命的なエラーを引き起こすことなくリスト内のエラーを「許容」します。ファイルシステムがリストに含まれていると、データの破損が発生し、書き込みが常に検証されるとは限りません。,list,"fuse, nfs, vboxsf, ramfs, 9p",None,selinux,special_context_filesystems,None,None,None,None
+DEFAULT_SFTP_BATCH_MODE¶,None,boolean,True,None,ssh_connection,sftp_batch_mode,ANSIBLE_SFTP_BATCH_MODE,None,None,None
+DEFAULT_SQUASH_ACTIONS¶,Ansibleは、with_ loopingを使用するときにリストパラメータをサポートするモジュールを呼び出すアクションを最適化できます。各項目に対して1回モジュールを呼び出す代わりに、モジュールは全リストを使って1回呼び出されます。この設定のデフォルト値は特定のパッケージマネージャ専用ですが、どのモジュールにも使用できます。現時点では、これはnameまたはpkgパラメータを持つモジュールに対して、そして項目がパラメータに渡される唯一のものである場合にのみサポートされます。,list,"apk, apt, dnf, homebrew, openbsd_pkg, pacman, pip, pkgng, yum, zypper",2.0,defaults,squash_actions,ANSIBLE_SQUASH_ACTIONS,2.11,"Loop squashing is deprecated and this configuration will no longer be used
+","a list directly with the module argument
+"
+DEFAULT_SSH_TRANSFER_METHOD¶,未使用？,None,None,None,ssh_connection,transfer_method,ANSIBLE_SSH_TRANSFER_METHOD,None,None,None
+DEFAULT_STDOUT_CALLBACK¶,Ansible出力を表示するために使用されるメインコールバックを設定します。一度に持つことができるのは1つだけです。他にも多くのコールバックを持つことができますが、標準出力を担当できるのは1つだけです。,None,default,None,defaults,stdout_callback,ANSIBLE_STDOUT_CALLBACK,None,None,None
+DEFAULT_STRATEGY¶,演劇に使用されるデフォルトの戦略を設定します。,None,linear,2.3,defaults,strategy,ANSIBLE_STRATEGY,None,None,None
+DEFAULT_STRATEGY_PLUGIN_PATH¶,Ansibleがストラテジープラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/strategy:/usr/share/ansible/plugins/strategy,None,defaults,strategy_plugins,ANSIBLE_STRATEGY_PLUGINS,None,None,None
+DEFAULT_SU¶,タスクのための「su」の使用を切り替えます。,boolean,False,None,defaults,su,ANSIBLE_SU,None,None,None
+DEFAULT_SU_EXE¶,実行可能ファイル「su」を指定します。それ以外の場合はPATHに依存します。,None,su,None,defaults,su_exe,ANSIBLE_SU_EXE,2.9,"In favor of Ansible Become, which is a generic framework. See become_exe.
+","become
+"
+DEFAULT_SU_FLAGS¶,suに渡すフラグ,None,,None,defaults,su_flags,ANSIBLE_SU_FLAGS,2.9,"In favor of Ansible Become, which is a generic framework. See become_flags.
+","become
+"
+DEFAULT_SU_USER¶,「su」を使用するときになるユーザーは、空白のままにすると、ターゲットに設定されているデフォルト（通常はroot）が使用されます。,None,None,None,defaults,su_user,ANSIBLE_SU_USER,2.9,"In favor of Ansible Become, which is a generic framework. See become_user.
+","become
+"
+DEFAULT_SYSLOG_FACILITY¶,Ansibleがリモートターゲットにログを記録するときに使用するsyslog機能,None,LOG_USER,None,defaults,syslog_facility,ANSIBLE_SYSLOG_FACILITY,None,None,None
+DEFAULT_TASK_INCLUDES_STATIC¶,インクルードタスクは静的または動的にすることができます。これは自動検出が失敗し、タスクで明示的に設定されていない場合にデフォルトの予想される動作を切り替えます。,boolean,False,2.1,defaults,task_includes_static,ANSIBLE_TASK_INCLUDES_STATIC,2.12,"include itself is deprecated and this setting will not matter in the future
+","None, as its already built into the decision between include_tasks and import_tasks
+"
+DEFAULT_TERMINAL_PLUGIN_PATH¶,Ansibleがターミナルプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/terminal:/usr/share/ansible/plugins/terminal,None,defaults,terminal_plugins,ANSIBLE_TERMINAL_PLUGINS,None,None,None
+DEFAULT_TEST_PLUGIN_PATH¶,AnsibleがJinja 2テストプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/test:/usr/share/ansible/plugins/test,None,defaults,test_plugins,ANSIBLE_TEST_PLUGINS,None,None,None
+DEFAULT_TIMEOUT¶,これは接続プラグインが使用するデフォルトのタイムアウトです。,integer,10,None,defaults,timeout,ANSIBLE_TIMEOUT,None,None,None
+DEFAULT_TRANSPORT¶,使用するデフォルトの接続プラグイン。「smart」オプションはコントローラのOSとsshのバージョンに応じて「ssh」と「paramiko」を切り替えます。,None,smart,None,defaults,transport,ANSIBLE_TRANSPORT,None,None,None
+DEFAULT_UNDEFINED_VAR_BEHAVIOR¶,Trueの場合、これは、タイプミスがある可能性がある変数名を参照するステップをAnsibleテンプレートに失敗させます。それ以外の場合、未定義の変数を含むすべての「{{template_expression}}」は、記述されたとおりにテンプレートまたは応答可能なアクションラインにレンダリングされます。,boolean,True,1.3,defaults,error_on_undefined_vars,ANSIBLE_ERROR_ON_UNDEFINED_VARS,None,None,None
+DEFAULT_VARS_PLUGIN_PATH¶,AnsibleがVarsプラグインを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/vars:/usr/share/ansible/plugins/vars,None,defaults,vars_plugins,ANSIBLE_VARS_PLUGINS,None,None,None
+DEFAULT_VAULT_ENCRYPT_IDENTITY¶,デフォルトで暗号化に使用するvault_id。複数のvault_idが指定されている場合、これは暗号化に使用するものを指定します。 encrypt-vault-id cliオプションは設定値を上書きします。,None,None,None,defaults,vault_encrypt_identity,ANSIBLE_VAULT_ENCRYPT_IDENTITY,None,None,None
+DEFAULT_VAULT_ID_MATCH¶,trueの場合、ボールトIDを使用してボールトを復号化すると、一致するボールトIDからのパスワードのみが試行されます。,None,False,None,defaults,vault_id_match,ANSIBLE_VAULT_ID_MATCH,None,None,None
+DEFAULT_VAULT_IDENTITY¶,ボールトIDラベルが指定されていない場合にデフォルトのボールトIDラベルに使用するラベル,None,default,None,defaults,vault_identity,ANSIBLE_VAULT_IDENTITY,None,None,None
+DEFAULT_VAULT_IDENTITY_LIST¶,デフォルトで使用するボールトIDのリスト。複数の-vault-id引数と同等です。 Vault IDが順番に試されます。,list,[],None,defaults,vault_identity_list,ANSIBLE_VAULT_IDENTITY_LIST,None,None,None
+DEFAULT_VAULT_PASSWORD_FILE¶,使用するボールトパスワードファイル。 vault-password-fileまたはvault-idと同じです。,path,None,None,defaults,vault_password_file,ANSIBLE_VAULT_PASSWORD_FILE,None,None,None
+DEFAULT_VERBOSITY¶,デフォルトの冗長性を設定します。これは、コマンドラインで渡された-vの数と同じです。,integer,0,None,defaults,verbosity,ANSIBLE_VERBOSITY,None,None,None
+DEPRECATION_WARNINGS¶,非推奨警告の表示を制御するために切り替えます,boolean,True,None,defaults,deprecation_warnings,ANSIBLE_DEPRECATION_WARNINGS,None,None,None
+DIFF_ALWAYS¶,--diffと同じ、変更ステータスにあるときにモジュールに違いを表示するように設定を切り替えます。,bool,False,None,diff,always,ANSIBLE_DIFF_ALWAYS,None,None,None
+DIFF_CONTEXT¶,ファイル間の違いを表示するときに何行のコンテキストを表示するか。,integer,3,None,diff,context,ANSIBLE_DIFF_CONTEXT,None,None,None
+DISPLAY_ARGS_TO_STDOUT¶,通常ansible-playbookは実行された各タスクのためにヘッダを表示します。指定した場合、これらのヘッダーにはタスクからのname：フィールドが含まれます。そうでない場合は、ansible-playbookはタスクのアクションを使用して、どのタスクが現在実行中であるかを判断しやすくします。同じアクションを多数実行することがあるので、タスクに関するより多くの情報を同じアクションの他のものと区別するために必要です。設定でこの変数をTrueに設定すると、ansible-playbookはヘッダにタスクの引数も含めます。この設定はデフォルトでFalseになっています。パラメータに機密の値があり、それらを印刷したくない可能性があるためです。これをTrueに設定した場合、あなたはあなたの環境の標準出力を安全にしたか（あなたのスクリーンをサーフすることができず、安全なファイルに標準出力を保存しない）確実になるでしょう。機密性の高い値を持つタスクへの真のパラメータプレイブックに秘密のデータを保存する方法を参照してください。詳細については。,boolean,False,2.1,defaults,display_args_to_stdout,ANSIBLE_DISPLAY_ARGS_TO_STDOUT,None,None,None
+DISPLAY_SKIPPED_HOSTS¶,デフォルトのコールバックでタスク内のスキップされたタスク/ホストエントリの表示を制御するように切り替えます,boolean,True,None,defaults,display_skipped_hosts,DISPLAY_SKIPPED_HOSTS,None,None,None
+DOC_FRAGMENT_PLUGIN_PATH¶,AnsibleがDocumentation Fragments Pluginsを検索する際に使用するコロン区切りのパス。,pathspec,~/.ansible/plugins/doc_fragments:/usr/share/ansible/plugins/doc_fragments,None,defaults,doc_fragment_plugins,ANSIBLE_DOC_FRAGMENT_PLUGINS,None,None,None
+DOCSITE_ROOT_URL¶,警告/エラーテキストでドキュメントURLを生成するために使用されるルートドキュメントサイトURL。有効なスキームと末尾のスラッシュを含む絶対URLである必要があります。,None,https://docs.ansible.com/ansible/,2.8,defaults,docsite_root_url,None,None,None,None
+ENABLE_TASK_DEBUGGER¶,タスクデバッガを有効にするかどうかに関係なく、これは以前は戦略プラグインとして行われていました。これで、すべての戦略プラグインはこの動作を継承できます。タスクが到達不能で失敗した場合、デバッガはデフォルトでアクティブになります。柔軟性を高めるには、debuggerキーワードを使用してください。,boolean,False,2.5,defaults,enable_task_debugger,ANSIBLE_ENABLE_TASK_DEBUGGER,None,None,None
+ERROR_ON_MISSING_HANDLER¶,通知時に、見つからないハンドラがエラーではなく警告になるように切り替えます。,boolean,True,None,defaults,error_on_missing_handler,ANSIBLE_ERROR_ON_MISSING_HANDLER,None,None,None
+FACTS_MODULES¶,デフォルトの「スマート」を使用して、プレイの事実収集段階でどのモジュールを実行するかは、接続タイプに基づいて判断しようとします。,list,[‘smart’],None,defaults,facts_modules,ANSIBLE_FACTS_MODULES,None,None,None
+GALAXY_IGNORE_CERTS¶,yesに設定すると、ansible-galaxyはTLS証明書を検証しません。これは自己署名証明書を持つサーバーに対してテストするのに役立ちます。,boolean,False,None,galaxy,ignore_certs,ANSIBLE_GALAXY_IGNORE,None,None,None
+GALAXY_ROLE_SKELETON¶,ansible-galaxyでinitアクションのテンプレートとして使用するロールスケルトンディレクトリ。--role-skeletonと同じです。,path,None,None,galaxy,role_skeleton,ANSIBLE_GALAXY_ROLE_SKELETON,None,None,None
+GALAXY_ROLE_SKELETON_IGNORE¶,ギャラクシーロールのスケルトンディレクトリ内で無視するファイルのパターン,list,"[‘^.git$’, ‘^.*/.git_keep$’]",None,galaxy,role_skeleton_ignore,ANSIBLE_GALAXY_ROLE_SKELETON_IGNORE,None,None,None
+GALAXY_SERVER¶,ロールが完全なURIを指定していない場合に付加するURLです。ロールがこのサーバーをソースとして参照していると想定します。,None,https://galaxy.ansible.com,None,galaxy,server,ANSIBLE_GALAXY_SERVER,None,None,None
+GALAXY_TOKEN¶,GitHub個人用アクセストークン,None,None,None,galaxy,token,ANSIBLE_GALAXY_TOKEN,None,None,None
+HOST_KEY_CHECKING¶,Ansibleがホストへの接続に使用する基本的なツールによるホストキーチェックを回避したい場合は、これを“ False”に設定します。,boolean,True,None,defaults,host_key_checking,ANSIBLE_HOST_KEY_CHECKING,None,None,None
+HOST_PATTERN_MISMATCH¶,この設定は、不一致のホストパターンの動作を変更します。致命的なエラー、警告、または無視することを強制できます。,None,warning,2.8,inventory,host_pattern_mismatch,ANSIBLE_HOST_PATTERN_MISMATCH,None,None,None
+INJECT_FACTS_AS_VARS¶,ファクトはansible_facts変数の中にあります。この設定はまたそれらをメインの名前空間の中のそれら自身のvarとしてプッシュします。 ansible_facts辞書の中とは異なり、これらはansible_接頭辞を持ちます。,boolean,True,2.5,defaults,inject_facts_as_vars,ANSIBLE_INJECT_FACT_VARS,None,None,None
+INTERPRETER_PYTHON¶,リモートターゲットでのモジュール実行、または自動検出モードに使用されるPythonインタプリタへのパス。サポートされている検出モードは、auto、auto_silent、およびauto_legacy（デフォルト）です。すべての検出モードは、含まれているシステムPython（1を含むことが知られているディストリビューション）を使用するためにルックアップテーブルを使用し、プラットフォーム固有のデフォルトが利用できない場合、有名なPythonインタプリタの位置の固定順序リストにフォールバックします。フォールバック動作により、インタプリタを明示的に設定する必要があるという警告が発行されます（後でインストールされたインタプリタが使用されるインタプリタを変更する可能性があるため）。この警告動作はauto_silentを設定することで無効にできます。 auto_legacyのデフォルト値はすべて同じ振る舞いを提供しますが、常に/ usr / bin / pythonにデフォルト設定されている旧バージョンのAnsibleとの後方互換性のために、存在する場合はそのインタープリタを使用します。将来のAnsibleリリースでのautoのリリース。,None,auto_legacy,2.8,defaults,interpreter_python,ANSIBLE_PYTHON_INTERPRETER,None,None,None
+INTERPRETER_PYTHON_DISTRO_MAP¶,None,None,"{‘centos’: {‘8’: ‘/usr/libexec/platform-python’, ‘6’: ‘/usr/bin/python’}, ‘rhel’: {‘8’: ‘/usr/libexec/platform-python’, ‘6’: ‘/usr/bin/python’}, ‘fedora’: {‘23’: ‘/usr/bin/python3’}, ‘redhat’: {‘8’: ‘/usr/libexec/platform-python’, ‘6’: ‘/usr/bin/python’}, ‘ubuntu’: {‘14’: ‘/usr/bin/python’, ‘16’: ‘/usr/bin/python3’}}",2.8,None,None,None,None,None,None
+INTERPRETER_PYTHON_FALLBACK¶,None,None,"[‘/usr/bin/python’, ‘python3.7’, ‘python3.6’, ‘python3.5’, ‘python2.7’, ‘python2.6’, ‘/usr/libexec/platform-python’, ‘/usr/bin/python3’, ‘python’]",2.8,None,None,None,None,None,None
+INVALID_TASK_ATTRIBUTE_FAILED¶,「false」の場合、タスクの無効な属性はエラーではなく警告を出します,boolean,True,2.7,defaults,invalid_task_attribute_failed,ANSIBLE_INVALID_TASK_ATTRIBUTE_FAILED,None,None,None
+INVENTORY_ANY_UNPARSED_IS_FAILED¶,「true」の場合、特定のインベントリソースを利用可能なインベントリプラグインで正常に解析できない場合は致命的なエラーです。そうでなければ、この状況は警告を引き付けるだけです。,boolean,False,2.7,inventory,any_unparsed_is_failed,ANSIBLE_INVENTORY_ANY_UNPARSED_IS_FAILED,None,None,None
+INVENTORY_CACHE_ENABLED¶,在庫キャッシュをオンにする,bool,False,None,inventory,cache,ANSIBLE_INVENTORY_CACHE,None,None,None
+INVENTORY_CACHE_PLUGIN¶,在庫をキャッシュするためのプラグイン。 INVENTORY_CACHE_PLUGINが指定されていない場合は、代わりにCACHE_PLUGINを使用できます。,None,,None,inventory,cache_plugin,ANSIBLE_INVENTORY_CACHE_PLUGIN,None,None,None
+INVENTORY_CACHE_PLUGIN_CONNECTION¶,インベントリキャッシュ接続。 INVENTORY_CACHE_PLUGIN_CONNECTIONが指定されていない場合は、代わりにCACHE_PLUGIN_CONNECTIONを使用できます。,None,,None,inventory,cache_connection,ANSIBLE_INVENTORY_CACHE_CONNECTION,None,None,None
+INVENTORY_CACHE_PLUGIN_PREFIX¶,キャッシュプラグインのテーブルプレフィックス。 INVENTORY_CACHE_PLUGIN_PREFIXが提供されていない場合は、代わりにCACHE_PLUGIN_PREFIXを使用できます。,None,ansible_facts,None,inventory,cache_prefix,ANSIBLE_INVENTORY_CACHE_PLUGIN_PREFIX,None,None,None
+INVENTORY_CACHE_TIMEOUT¶,インベントリキャッシュプラグインデータの有効期限タイムアウト。 INVENTORY_CACHE_TIMEOUTが指定されていない場合は、代わりにCACHE_TIMEOUTを使用できます。,None,3600,None,inventory,cache_timeout,ANSIBLE_INVENTORY_CACHE_TIMEOUT,None,None,None
+INVENTORY_ENABLED¶,有効化されたインベントリプラグインのリスト。また、それらが使用される順序も決定します。,list,"[‘host_list’, ‘script’, ‘auto’, ‘yaml’, ‘ini’, ‘toml’]",None,inventory,enable_plugins,ANSIBLE_INVENTORY_ENABLED,None,None,None
+INVENTORY_EXPORT¶,Ansible-inventoryがAnsibleのビューをインベントリに正確に反映するか、エクスポート用に最適化するかを制御します。,bool,False,None,inventory,export,ANSIBLE_INVENTORY_EXPORT,None,None,None
+INVENTORY_IGNORE_EXTS¶,ディレクトリをインベントリソースとして使用するときに無視する拡張子のリスト,list,"{{(BLACKLIST_EXTS + ( ‘.orig’, ‘.ini’, ‘.cfg’, ‘.retry’))}}",None,inventory,ignore_extensions,ANSIBLE_INVENTORY_IGNORE,None,None,None
+INVENTORY_IGNORE_PATTERNS¶,ディレクトリをインベントリソースとして使用するときに無視するパターンのリスト,list,[],None,inventory,ignore_patterns,ANSIBLE_INVENTORY_IGNORE_REGEX,None,None,None
+INVENTORY_UNPARSED_IS_FAILED¶,「true」の場合、すべての潜在的な在庫ソースが解析できない場合、致命的なエラーになります。それ以外の場合、この状況では警告が表示されるだけです。,bool,False,None,inventory,unparsed_is_failed,ANSIBLE_INVENTORY_UNPARSED_FAILED,None,None,None
+LOCALHOST_WARNING¶,デフォルトで、Ansibleはインベントリにホストが存在しないときに警告を出します。これらの警告は、この設定をFalseに調整することで消すことができます。,boolean,True,2.6,defaults,localhost_warning,ANSIBLE_LOCALHOST_WARNING,None,None,None
+MAX_FILE_SIZE_FOR_DIFF¶,差分表示に考慮されるファイルの最大サイズ,int,104448,None,defaults,max_diff_size,ANSIBLE_MAX_DIFF_SIZE,None,None,None
+NETCONF_SSH_CONFIG¶,この変数はnetconf接続で要塞/ジャンプホストを有効にするために使用されます。 Trueに設定した場合、要塞/ジャンプホストのssh設定は～/ .ssh / configファイルに存在するはずです。あるいは、要塞/ジャンプホストの設定を読み込むためにカスタムssh設定ファイルのパスに設定することもできます。,None,None,None,netconf_connection,ssh_config,ANSIBLE_NETCONF_SSH_CONFIG,None,None,None
+NETWORK_GROUP_MODULES¶,None,list,"[‘eos’, ‘nxos’, ‘ios’, ‘iosxr’, ‘junos’, ‘enos’, ‘ce’, ‘vyos’, ‘sros’, ‘dellos9’, ‘dellos10’, ‘dellos6’, ‘asa’, ‘aruba’, ‘aireos’, ‘bigip’, ‘ironware’, ‘onyx’, ‘netconf’]",None,defaults,network_group_modules,NETWORK_GROUP_MODULES,None,None,None
+OLD_PLUGIN_CACHE_CLEARING¶,以前のAnsibleでは、新しいロールをロードするときにプラグインロードキャッシュの一部しかクリアされなかったため、prevoiusでロードされたプラグインが予期せず「スティッキー」になることがありました。この設定により、その動作に戻ることができます。,boolean,False,2.8,defaults,old_plugin_cache_clear,ANSIBLE_OLD_PLUGIN_CACHE_CLEAR,None,None,None
+PARAMIKO_HOST_KEY_AUTO_ADD¶,None,boolean,False,None,paramiko_connection,host_key_auto_add,ANSIBLE_PARAMIKO_HOST_KEY_AUTO_ADD,None,None,None
+PARAMIKO_LOOK_FOR_KEYS¶,None,boolean,True,None,paramiko_connection,look_for_keys,ANSIBLE_PARAMIKO_LOOK_FOR_KEYS,None,None,None
+PERSISTENT_COMMAND_TIMEOUT¶,これは、既存の接続をタイムアウトするまでにリモートデバイスからの応答を待つ時間を制御します。,int,30,None,persistent_connection,command_timeout,ANSIBLE_PERSISTENT_COMMAND_TIMEOUT,None,None,None
+PERSISTENT_CONNECT_RETRY_TIMEOUT¶,これは、ローカルドメインソケットに接続するための持続的接続の再試行タイムアウトを制御します。,integer,15,None,persistent_connection,connect_retry_timeout,ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT,None,None,None
+PERSISTENT_CONNECT_TIMEOUT¶,これは、持続的接続が破棄されるまでアイドル状態を維持する時間を制御します。,integer,30,None,persistent_connection,connect_timeout,ANSIBLE_PERSISTENT_CONNECT_TIMEOUT,None,None,None
+PERSISTENT_CONTROL_PATH_DIR¶,接続持続システムによって使用されるソケットへのパス。,path,~/.ansible/pc,None,persistent_connection,control_path_dir,ANSIBLE_PERSISTENT_CONTROL_PATH_DIR,None,None,None
+PLAYBOOK_VARS_ROOT¶,これはvarsプラグインを処理するためのルートとしてどのプレイブックディレクトリを使用するかを設定します。これにはhost_vars / group_varsの検索が含まれます。トップオプションはチェーン内のトッププレイブックを使用してルートディレクトリを見つけるという伝統的な動作に従います。一番下のオプションは、現在のプレイブックを使ってルートディレクトリを見つけるという2.4.0の動作に従います。 allオプションは、最初の親から現在のプレイブックまでを調べます。,None,top,2.4.1,defaults,playbook_vars_root,ANSIBLE_PLAYBOOK_VARS_ROOT,None,None,None
+PLUGIN_FILTERS_CFG¶,システムにインストールされているプラグインをフィルタリングするための設定へのパス。フィルタファイルの形式の詳細については、プラグインフィルタの設定を参照してください。デフォルトは/etc/ansible/plugin_filters.ymlです。,path,None,2.5.0,defaults,plugin_filters_cfg,None,None,None,None
+PYTHON_MODULE_RLIMIT_NOFILE¶,Pythonモジュールの実行時にRLIMIT_NOFILEソフト制限を指定された値に設定しようとします（Python 2.xでサブプロセスの使用を高速化できます。https://bugs.python.org/issue11284を参照）。値は既存の厳しい制限によって制限されます。デフォルト値の0は、既存のシステム定義の制限を調整しようとしません。,None,0,2.8,defaults,python_module_rlimit_nofile,ANSIBLE_PYTHON_MODULE_RLIMIT_NOFILE,None,None,None
+RETRY_FILES_ENABLED¶,これは、失敗したAnsibleプレイブックが.retryファイルを作成するかどうかを制御します。,bool,False,None,defaults,retry_files_enabled,ANSIBLE_RETRY_FILES_ENABLED,None,None,None
+RETRY_FILES_SAVE_PATH¶,これは、プレイブックが失敗して再試行ファイルが有効になったときにAnsibleが.retryファイルを保存するパスを設定します。,path,None,None,defaults,retry_files_save_path,ANSIBLE_RETRY_FILES_SAVE_PATH,None,None,None
+SHOW_CUSTOM_STATS¶,これはset_statsプラグインを通して設定されたカスタム統計をデフォルトの出力に追加します,bool,False,None,defaults,show_custom_stats,ANSIBLE_SHOW_CUSTOM_STATS,None,None,None
+STRING_CONVERSION_ACTION¶,モジュールパラメータ値が文字列に変換されたときに実行するアクション（これは変数に影響しません）。文字列パラメータの場合、 '1.00'、 '[' a '、' b '、]、および' yes '、' y 'などの値は、完全に引用符で囲まれていない限り、YAMLパーサーによって変換されます。有効なオプションは、「エラー」、「警告」、および「無視」です。 2.8以降、このオプションはデフォルトで「警告」になっていますが、2.12では「エラー」に変わります。,string,warn,2.8,defaults,string_conversion_action,ANSIBLE_STRING_CONVERSION_ACTION,None,None,None
+STRING_TYPE_FILTERS¶,このフィルタのリストは、変数をテンプレート化する際の「型変換」を回避します。たとえば、JSON文字列のリストや辞書への変換を回避したい場合に役立ちます。,list,"[‘string’, ‘to_json’, ‘to_nice_json’, ‘to_yaml’, ‘ppretty’, ‘json’]",None,jinja2,dont_type_filters,ANSIBLE_STRING_TYPE_FILTERS,None,None,None
+SYSTEM_WARNINGS¶,ansibleを実行しているシステム上（管理対象ホスト上ではない）で発生する可能性のある問題に関連する警告を無効にすることを許可します。これらには、サードパーティパッケージに関する警告、または可能であれば解決すべきその他の条件が含まれます。,boolean,True,None,defaults,system_warnings,ANSIBLE_SYSTEM_WARNINGS,None,None,None
+TAGS_RUN¶,あなたの演劇で動くべきタグのデフォルトリスト、スキップタグが優先されます。,list,[],2.5,tags,run,ANSIBLE_RUN_TAGS,None,None,None
+TAGS_SKIP¶,プレイ中にスキップするタグのデフォルトリストは、実行タグよりも優先されます。,list,[],2.5,tags,skip,ANSIBLE_SKIP_TAGS,None,None,None
+TASK_DEBUGGER_IGNORE_ERRORS¶,このオプションは、ignore_errors = Trueが指定されている場合にタスクデバッガが失敗したタスクで呼び出されるかどうかを定義します。 Trueはデバッガがignore_errorsを優先することを指定し、Falseはignore_errorsを優先しません。,boolean,True,2.7,defaults,task_debugger_ignore_errors,ANSIBLE_TASK_DEBUGGER_IGNORE_ERRORS,None,None,None
+TRANSFORM_INVALID_GROUP_CHARS¶,インベントリソースから提供されたグループ名に無効な文字を確実に変換できるようにします。 「しない」の場合、グループ名は許可されますが問題については警告されます。 「常に」の場合、無効な文字はすべて「_」（アンダースコア）に置き換えられ、「警告なしに」と表示された場合は「常に」の場合と同じ動作をします。,string,never,2.8,defaults,force_valid_group_names,ANSIBLE_TRANSFORM_INVALID_GROUP_CHARS,None,None,None
+USE_PERSISTENT_CONNECTIONS¶,接続の持続性の使用を切り替えます。,boolean,False,None,defaults,use_persistent_connections,ANSIBLE_USE_PERSISTENT_CONNECTIONS,None,None,None
+VARIABLE_PRECEDENCE¶,グループ変数の優先順位のマージ順を変更できます。,list,"[‘all_inventory’, ‘groups_inventory’, ‘all_plugins_inventory’, ‘all_plugins_play’, ‘groups_plugins_inventory’, ‘groups_plugins_play’]",2.4,defaults,precedence,ANSIBLE_PRECEDENCE,None,None,None
+VERBOSE_TO_STDERR¶,'冗長'オプションでstdoutの代わりにstderrを使うよう強制する,bool,False,2.8,defaults,verbose_to_stderr,ANSIBLE_VERBOSE_TO_STDERR,None,None,None
+YAML_FILENAME_EXTENSIONS¶,YAMLかJSONかそれらのアーチ型バージョンであるべきである「可変」ファイルを探すときこれらの拡張子の全てをチェックしてください。これは特にvars_files、include_vars、inventory、およびvarsプラグインに影響します。,list,"[‘.yml’, ‘.yaml’, ‘.json’]",None,defaults,yaml_valid_extensions,ANSIBLE_YAML_FILENAME_EXT,None,None,None
